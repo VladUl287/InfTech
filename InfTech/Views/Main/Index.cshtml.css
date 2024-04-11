@@ -1,0 +1,16 @@
+﻿.explorer {
+    display: grid;
+    grid-template-columns: minmax(25%, auto) auto 1fr;
+}
+
+    .explorer .tree {
+        padding: 0 1.5em;
+        overflow-y: auto;
+    }
+
+    .explorer .divider {
+        width: 5px;
+        height: 98%;
+        align-self: center;
+        background-color: var(--gray-l);
+    }

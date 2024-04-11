@@ -1,0 +1,28 @@
+﻿.file-tree-item {
+    margin: .5em 0;
+    display: flex;
+    cursor: pointer;
+    font-size: smaller;
+    align-items: center;
+    user-select: none;
+}
+
+    .file-tree-item p {
+        margin: 0;
+    }
+
+    .file-tree-item .icon {
+        font-size: larger;
+        margin-right: .3em;
+    }
+
+    .file-tree-item .description {
+        display: none;
+        z-index: 1;
+        padding: .5em;
+        position: fixed;
+        max-width: 400px;
+        border-radius: .2em;
+        background-color: var(--gray-l);
+        border: 1px solid var(--current-l);
+    }

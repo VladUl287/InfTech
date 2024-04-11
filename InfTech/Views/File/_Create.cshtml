@@ -1,0 +1,46 @@
+﻿@model InfTech.Models.CreateFileViewModel
+
+<form id="createFileForm">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.FolderId)
+    <div class="form-item">
+        <fieldset class="input">
+            <legend>Наименование</legend>
+            <input type="text" asp-for="Name" />
+        </fieldset>
+        @Html.ValidationMessageFor(m => m.Name, string.Empty, new { @class = "danger" })
+    </div>
+    <div class="form-item">
+        <fieldset class="input">
+            <legend>Описание</legend>
+            <textarea class="form-control" asp-for="Description" rows="3"></textarea>
+        </fieldset>
+        @Html.ValidationMessageFor(m => m.Description, string.Empty, new { @class = "danger" })
+    </div>
+    <div class="form-item">
+        <fieldset class="input">
+            <legend>Содержимое</legend>
+            <textarea class="form-control" asp-for="Content" rows="5"></textarea>
+        </fieldset>
+        @Html.ValidationMessageFor(m => m.Content, string.Empty, new { @class = "danger" })
+    </div>
+    <input class="accept" type="submit" value="Создать файл" />
+</form>
+
+<script>
+    $('#createFileForm').submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: '/File/Create',
+            type: 'POST',
+            data: $(this).serialize(),
+            success: () => {
+                closeModal()
+                reloadTree()
+            },
+            error: (error) => {
+                $('#createFileForm').parent().html(error.responseText)
+            }
+        })
+    });
+</script>

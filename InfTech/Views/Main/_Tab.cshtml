@@ -1,0 +1,6 @@
+﻿@model InfTech.Models.TabViewModel
+
+<div class="tab" onclick="loadTabContent(@Model.FileId)" id="tab-@Model.FileId">
+    <span>@Model.Name</span>
+    <button onclick="closeTab(event, @Model.FileId)">&#10005;</button>
+</div>

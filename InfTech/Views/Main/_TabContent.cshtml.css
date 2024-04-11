@@ -1,0 +1,10 @@
+﻿pre {
+    margin: 0;
+    overflow: auto
+}
+
+code {
+    overflow: hidden;
+    width: fit-content;
+    padding-top: 0 !important;
+}

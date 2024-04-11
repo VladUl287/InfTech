@@ -1,0 +1,43 @@
+﻿.folder-tree-item {
+    position: relative;
+    user-select: none;
+    margin: .5em 0;
+}
+
+    .folder-tree-item .button {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding-left: .5em;
+        column-gap: .5em;
+        padding: 0;
+        border: none;
+        cursor: pointer;
+        background-color: transparent;
+    }
+
+        .folder-tree-item .button i {
+            font-size: larger;
+        }
+
+    .folder-tree-item .caret {
+        position: absolute;
+        font-size: small !important;
+        right: 102%;
+    }
+
+    .folder-tree-item.open > .button > .caret {
+        transform: rotate(45deg);
+    }
+
+    .folder-tree-item > .files,
+    .folder-tree-item > .folders {
+        display: none;
+        margin-left: 1em;
+    }
+
+
+    .folder-tree-item.open > .files,
+    .folder-tree-item.open > .folders {
+        display: block;
+    }

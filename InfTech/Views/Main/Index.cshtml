@@ -1,0 +1,31 @@
+﻿@model InfTech.Models.ContentViewModel
+
+@{
+    ViewData["Title"] = "Explorer";
+}
+
+<section class="main-container h-100">
+    <div>
+        @await Html.PartialAsync("~/Views/Main/_Actions.cshtml")
+    </div>
+    <div class="explorer overflow-hidden h-100">
+        <div class="tree h-100" onclick="rootEvent()">
+            @await Html.PartialAsync("~/Views/Folder/_Folders.cshtml", Model.Folders)
+            @await Html.PartialAsync("~/Views/File/_Files.cshtml", Model.Files)
+        </div>
+        <span class="divider"></span>
+        <div class="file-content h-100 overflow-hidden">
+            <div class="tabs main-container">
+                <div id="tab-nav-wrapper"></div>
+                <div id="tab-content-wrapper" class="overflow-hidden"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/tabs.js"></script>
+    <script src="~/js/folder.js"></script>
+    <script src="~/js/file.js"></script>
+    <script src="~/js/main.js"></script>
+}

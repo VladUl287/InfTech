@@ -1,0 +1,40 @@
+﻿.actions {
+    display: flex;
+    column-gap: 1em;
+    padding: .5em;
+    background-color: var(--gray-l);
+}
+
+    .actions .action {
+        all: unset;
+        cursor: pointer;
+        user-select: none;
+        padding: .5em 1em;
+        font-size: smaller;
+        border-radius: .2em;
+        border: 1px solid transparent;
+    }
+
+        .actions .action.active {
+            border-color: var(--current-l);
+            background-color: var(--gray);
+        }
+
+#myModal {
+    padding: 1em 1.5em;
+    border-radius: .5em;
+    width: min(500px, calc(100% - 1em));
+    border: 1px solid var(--gray-l);
+}
+
+.modal-header {
+    text-align: right;
+    margin-bottom: .5em;
+}
+
+    .modal-header button {
+        all: unset;
+        cursor: pointer;
+        font-size: large;
+        user-select: none;
+    }

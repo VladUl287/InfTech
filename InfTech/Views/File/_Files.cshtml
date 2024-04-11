@@ -1,0 +1,13 @@
+﻿@model InfTech.Core.Dtos.FileDto[]
+
+@foreach (var file in Model)
+{
+    <div class="file-tree-item file-id-@file.Id" onclick="clickOnFile(@file.Id, '@file.Name' + '@file.Extension.Type')">
+        <span class="icon">
+            @Html.Raw(file.Extension.Icon)
+        </span>
+        <p class="name">@file.Name</p>
+        <p>@file.Extension.Type</p>
+        <span class="description">@file.Description</span>
+    </div>
+}

@@ -1,0 +1,29 @@
+﻿<section class="actions">
+    <button class="action" id="action-0" onclick="setActionMode(mode.createFolder)">
+        Создать папку
+    </button>
+    <button class="action" id="action-1" onclick="setActionMode(mode.deleteFolder)">
+        Удалить папку
+    </button>
+    <button class="action" id="action-2" onclick="setActionMode(mode.uploadFile)">
+        Загрузить файл
+    </button>
+    <button class="action" id="action-3" onclick="setActionMode(mode.downloadFile)">
+        Скачать файл
+    </button>
+    <button class="action" id="action-4" onclick="setActionMode(mode.deleteFile)">
+        Удалить файл
+    </button>
+    <button class="action" id="action-5" onclick="setActionMode(mode.rename)">
+        Переименовать
+    </button>
+</section>
+
+<dialog id="myModal">
+    <div class="modal-header">
+        <button onclick="closeModal()">&#10005;</button>
+    </div>
+    <div id="modalContainer"></div>
+</dialog>
+
+<script src="~/js/actions.js"></script>

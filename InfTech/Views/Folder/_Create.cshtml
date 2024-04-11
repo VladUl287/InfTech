@@ -1,0 +1,34 @@
+﻿@model InfTech.Models.CreateFolderViewModel
+
+<form id="createFolderForm">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.ParentFolderId)
+    <div class="form-item">
+        <fieldset class="input">
+            <legend>Наименование</legend>
+            <input type="text" asp-for="Name" />
+        </fieldset>
+        @Html.ValidationMessageFor(m => m.Name, string.Empty, new { @class="danger" })
+    </div>
+    <div>
+        <input class="accept" type="submit" value="Создать папку" />
+    </div>
+</form>
+
+<script>
+    $('#createFolderForm').submit(function (event) {
+        event.preventDefault()
+        $.ajax({
+            type: 'POST',
+            url: '/Folder/Create',
+            data: $(this).serialize(),
+            success: () => {
+                closeModal()
+                reloadTree()
+            },
+            error: (error) => {
+                $('#createFolderForm').parent().html(error.responseText)
+            }
+        })
+    })
+</script>

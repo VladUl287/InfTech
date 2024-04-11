@@ -1,0 +1,14 @@
+﻿@model InfTech.Core.Dtos.FolderDto[]
+
+@foreach (var folder in Model)
+{
+    <div class="folder-tree-item folder-id-@folder.Id closed">
+        <button class="button" onclick="clickOnFolder(@folder.Id)">
+            <i class="bi bi-caret-right-fill caret"></i>
+            <i class="bi bi-folder"></i>
+            <span class="name">@folder.Name</span>
+        </button>
+        <section class="folders"></section>
+        <section class="files"></section>
+    </div>
+}
