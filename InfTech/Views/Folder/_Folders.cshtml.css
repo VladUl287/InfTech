@@ -1,4 +1,4 @@
-﻿.folder-tree-item {
+.folder-tree-item {
     position: relative;
     user-select: none;
     margin: .5em 0;
@@ -40,4 +40,8 @@
     .folder-tree-item.open > .files,
     .folder-tree-item.open > .folders {
         display: block;
+    }
+
+    .folder-tree-item .name[contenteditable=true] {
+        padding: .2em;
     }
