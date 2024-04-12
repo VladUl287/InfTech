@@ -18,27 +18,27 @@ function setFileHoverEvents(document) {
         });
 }
 
-function clickOnFile(fileId, fileName) {
-    if (checkFileActionMode(fileId, fileName)) {
+function clickOnFile(fileId, fileName, folderId) {
+    if (checkFileActionMode(fileId, fileName, folderId)) {
         actionMode.mode = undefined
         return
     }
     addTab(fileId, fileName)
 }
 
-function checkFileActionMode(fileId, fileName) {
+function checkFileActionMode(fileId, fileName, folderId) {
     switch (actionMode.mode) {
         case mode.downloadFile:
             fetch('/File/Download?fileId=' + fileId)
                 .then(resp => resp.blob())
                 .then((blob) => downloadBlob(blob, fileName))
-                .catch(() => alert('Îøèáêà ñêà÷èâàíèÿ ôàéëà.'))
+                .catch(() => alert('ÐžÑˆÐ¸Ð±ÐºÐ° ÑÐºÐ°Ñ‡Ð¸Ð²Ð°Ð½Ð¸Ñ Ñ„Ð°Ð¹Ð»Ð°.'))
             break
         case mode.deleteFile:
             $.ajax({
                 url: '/File/Delete?fileId=' + fileId,
                 type: 'DELETE',
-                success: reloadTree
+                success: () => loadContent(folderId)
             });
             break
         case mode.rename:
@@ -49,7 +49,8 @@ function checkFileActionMode(fileId, fileName) {
                 target?.setAttribute('contenteditable', false)
                 $.ajax({
                     url: '/File/Rename?id=' + fileId + '&name=' + target.innerText,
-                    type: 'PUT'
+                    type: 'PUT',
+                    success: () => loadContent(folderId)
                 })
             }, { once: true })
             break
