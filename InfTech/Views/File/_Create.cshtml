@@ -36,7 +36,7 @@
             data: $(this).serialize(),
             success: () => {
                 closeModal()
-                loadContent(@Model.FolderId)
+                loadFiles(@Model.FolderId)
             },
             error: (error) => {
                 $('#createFileForm').parent().html(error.responseText)
