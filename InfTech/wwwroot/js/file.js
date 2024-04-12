@@ -45,7 +45,7 @@ function checkFileActionMode(fileId, fileName, folderId) {
             $.ajax({
                 url: '/File/Delete?fileId=' + fileId,
                 type: 'DELETE',
-                success: () => loadContent(folderId)
+                success: () => loadFiles(folderId)
             });
             break
         case mode.rename:
@@ -57,7 +57,7 @@ function checkFileActionMode(fileId, fileName, folderId) {
                 $.ajax({
                     url: '/File/Rename?id=' + fileId + '&name=' + this.innerText,
                     type: 'PUT'
-                }).always(() => loadContent(folderId))
+                }).always(() => loadFiles(folderId))
             })
             break
         default:
