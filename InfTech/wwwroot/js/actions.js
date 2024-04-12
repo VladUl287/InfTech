@@ -10,19 +10,22 @@ const mode = Object.freeze({
 const actionMode = new Proxy({ mode: undefined }, {
     get: (target, prop) => target[prop],
     set(target, prop, value) {
-        target[prop] !== undefined && toggleActive('#action-' + target[prop], false)
-        value !== undefined && toggleActive('#action-' + value, true)
+        $(`.action[data-id=${target[prop]}]`).removeClass('active')
+        $(`.action[data-id=${value}]`).addClass('active')
         target[prop] = value
     }
 })
 
-function toggleActive(selector, value) {
-    const btn = document.querySelector(selector)
-    btn?.classList.toggle("active", value)
-}
+$(function () {
+    setActionClickEvent()
+})
 
-function setActionMode(mode) {
-    actionMode.mode = actionMode.mode === mode ? undefined : mode
+function setActionClickEvent() {
+    $(document)
+        .on('click', '.action', function () {
+            const actionId = +$(this).attr('data-id')
+            actionMode.mode = actionMode.mode === actionId ? undefined : actionId
+        })
 }
 
 function showModal() {
