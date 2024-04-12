@@ -1,34 +1,26 @@
-function clickOnFolder(folderId) {
-    if (checkFolderActionMode(folderId)) {
+const open = 'open'
+const opened = 'opened'
+function clickOnFolder(folderId, parentFolderId) {
+    if (checkFolderActionMode(folderId, parentFolderId)) {
         actionMode.mode = undefined
         return
     }
-    const open = 'open'
-    const opened = 'opened'
-    const treeItem = $('.folder-id-' + folderId)
-    treeItem?.toggleClass(open)
 
-    if (treeItem?.hasClass(open) && !treeItem.hasClass(opened)) {
-        treeItem.addClass(opened)
-        const contentFolders = treeItem.find('.folders')
-        const contentFiles = treeItem.find('.files')
-        $.when(
-            $.get('/Folder/Get?folderId=' + folderId),
-            $.get('/File/Get?folderId=' + folderId))
-            .then((folders, files) => {
-                contentFolders.append(folders[0])
-                contentFiles.append(files[0])
-            })
+    const folder = $('.folder-id-' + folderId)
+    folder?.toggleClass(open)
+    if (folder?.hasClass(open) && !folder?.hasClass(opened)) {
+        folder.addClass(opened)
+        loadContent(folderId)
     }
 }
 
-function checkFolderActionMode(folderId) {
+function checkFolderActionMode(folderId, parentFolderId) {
     switch (actionMode.mode) {
         case mode.deleteFolder:
             $.ajax({
                 url: '/Folder/Delete?folderId=' + folderId,
                 type: 'DELETE',
-                success: reloadTree
+                success: () => loadContent(parentFolderId)
             })
             break
         case mode.createFolder:
@@ -49,7 +41,7 @@ function checkFolderActionMode(folderId) {
                 target.setAttribute('contenteditable', false)
                 $.ajax({
                     url: '/Folder/Rename?id=' + folderId + '&name=' + target.innerText,
-                    type: 'PUT',
+                    type: 'PUT'
                 })
             }, { once: true })
             break
@@ -57,4 +49,30 @@ function checkFolderActionMode(folderId) {
             return false
     }
     return true
+}
+
+function loadContent(folderId) {
+    if (folderId) {
+        const folder = $('.folder-id-' + folderId)
+        if (folder.hasClass(open) || folder.hasClass(opened)) {
+            const subFolders = folder.find('.folders')
+            const subFiles = folder.find('.files')
+            $.when(
+                $.get('/Folder/Get?folderId=' + folderId),
+                $.get('/File/Get?folderId=' + folderId))
+                .then((folders, files) => {
+                    subFolders.html(folders[0])
+                    subFiles.html(files[0])
+                })
+        }
+        return
+    }
+    const tree = $('.tree').empty()
+    $.when(
+        $.get('/Folder/Get'),
+        $.get('/File/Get'))
+        .then((folders, files) => {
+            tree.append(folders[0])
+            tree.append(files[0])
+        })
 }
