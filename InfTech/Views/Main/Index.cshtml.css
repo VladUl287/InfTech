@@ -1,6 +1,6 @@
 ﻿.explorer {
     display: grid;
-    grid-template-columns: minmax(25%, auto) auto 1fr;
+    grid-template-columns: minmax(25%, 35%) auto 1fr;
 }
 
     .explorer .tree {
