@@ -34,16 +34,16 @@ function checkFolderActionMode(folderId, parentFolderId) {
                 .then(result => setModalContent(result))
             break
         case mode.rename:
-            const target = document.querySelector('.folder-id-' + folderId + ' .name')
-            target?.setAttribute('contenteditable', true)
-            target?.focus()
-            target?.addEventListener('focusout', () => {
-                target.setAttribute('contenteditable', false)
+            const target = $('.folder-id-' + folderId + ' .name')
+            target.attr('contenteditable', true)
+            target.trigger('focus')
+            target.one('focusout', function () {
+                $(this).attr('contenteditable', false)
                 $.ajax({
-                    url: '/Folder/Rename?id=' + folderId + '&name=' + target.innerText,
+                    url: '/Folder/Rename?id=' + folderId + '&name=' + this.innerText,
                     type: 'PUT'
                 })
-            }, { once: true })
+            })
             break
         default:
             return false
