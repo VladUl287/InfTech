@@ -1,8 +1,9 @@
 $(function () {
-    setFileHoverEvents(this)
+    setFileHoverEvents()
+    setClickOnFileEvents()
 })
 
-function setFileHoverEvents(document) {
+function setFileHoverEvents() {
     $(document)
         .on('mouseenter', '.file-tree-item', function () {
             $(this).find('.description').show()
@@ -15,15 +16,21 @@ function setFileHoverEvents(document) {
                 top: event.pageY + 15,
                 left: event.pageX + 15
             })
-        });
+        })
 }
 
-function clickOnFile(fileId, fileName, folderId) {
-    if (checkFileActionMode(fileId, fileName, folderId)) {
-        actionMode.mode = undefined
-        return
-    }
-    addTab(fileId, fileName)
+function setClickOnFileEvents() {
+    $(document)
+        .on('click', '.file-tree-item', function () {
+            const fileId = $(this).attr('file-id')
+            const fileName = $(this).attr('file-name')
+            const folderId = $(this).attr('folder-id')
+            if (checkFileActionMode(fileId, fileName, folderId)) {
+                actionMode.mode = undefined
+                return
+            }
+            addTab(fileId, fileName)
+        })
 }
 
 function checkFileActionMode(fileId, fileName, folderId) {
@@ -42,7 +49,7 @@ function checkFileActionMode(fileId, fileName, folderId) {
             });
             break
         case mode.rename:
-            const target = $('.file-id-' + fileId + '>.name')
+            const target = $(`.file-tree-item[file-id=${fileId}]>.name`)
             target.attr('contenteditable', true)
             target.trigger('focus')
             target.one('focusout', function () {
