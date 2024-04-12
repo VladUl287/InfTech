@@ -1,4 +1,4 @@
-﻿namespace InfTech.Core.Dtos;
+namespace InfTech.Core.Dtos;
 
 public sealed class FileDto
 {
@@ -11,4 +11,6 @@ public sealed class FileDto
     public string Description { get; init; } = string.Empty;
 
     public ExtensionDto Extension { get; init; } = default!;
+
+    public int? FolderId { get; init; }
 }
