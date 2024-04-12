@@ -2,7 +2,7 @@
 
 @foreach (var file in Model)
 {
-    <div class="file-tree-item file-id-@file.Id" onclick="clickOnFile(@file.Id, '@file.Name' + '@file.Extension.Type', @file.FolderId)">
+    <div class="file-tree-item" file-id="@file.Id" file-name="@(file.Name + file.Extension.Type)" folder-id="@file.FolderId">
         <span class="icon">
             @Html.Raw(file.Extension.Icon)
         </span>
