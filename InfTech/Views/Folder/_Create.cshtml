@@ -24,7 +24,7 @@
             data: $(this).serialize(),
             success: () => {
                 closeModal()
-                loadContent(@Model.ParentFolderId)
+                loadFolders(@Model.ParentFolderId)
             },
             error: (error) => {
                 $('#createFolderForm').parent().html(error.responseText)
