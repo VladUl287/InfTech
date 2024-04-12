@@ -1,4 +1,4 @@
-﻿.file-tree-item {
+.file-tree-item {
     margin: .5em 0;
     display: flex;
     cursor: pointer;
@@ -25,4 +25,8 @@
         border-radius: .2em;
         background-color: var(--gray-l);
         border: 1px solid var(--current-l);
+    }
+
+    .file-tree-item .name[contenteditable=true] {
+        padding: .2em;
     }
