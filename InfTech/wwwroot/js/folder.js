@@ -10,7 +10,12 @@ function clickOnFolder(folderId, parentFolderId) {
     folder?.toggleClass(open)
     if (folder?.hasClass(open) && !folder?.hasClass(opened)) {
         folder.addClass(opened)
-        loadContent(folderId)
+        const subFolders = folder.find('>.folders')
+        const subFiles = folder.find('>.files')
+        $.get('/Folder/Get?folderId=' + folderId)
+            .then(folders => subFolders.html(folders))
+        $.get('/File/Get?folderId=' + folderId)
+            .then(files => subFiles.html(files))
     }
 }
 
@@ -20,7 +25,7 @@ function checkFolderActionMode(folderId, parentFolderId) {
             $.ajax({
                 url: '/Folder/Delete?folderId=' + folderId,
                 type: 'DELETE',
-                success: () => loadContent(parentFolderId)
+                success: () => loadFolders(parentFolderId)
             })
             break
         case mode.createFolder:
@@ -51,28 +56,30 @@ function checkFolderActionMode(folderId, parentFolderId) {
     return true
 }
 
-function loadContent(folderId) {
+function loadFolders(folderId) {
     if (folderId) {
         const folder = $('.folder-id-' + folderId)
         if (folder.hasClass(open) || folder.hasClass(opened)) {
-            const subFolders = folder.find('.folders')
-            const subFiles = folder.find('.files')
-            $.when(
-                $.get('/Folder/Get?folderId=' + folderId),
-                $.get('/File/Get?folderId=' + folderId))
-                .then((folders, files) => {
-                    subFolders.html(folders[0])
-                    subFiles.html(files[0])
-                })
+            const subFolders = folder.find('>.folders')
+            $.get('/Folder/Get?folderId=' + folderId)
+                .then(folders => subFolders.html(folders))
         }
         return
     }
-    const tree = $('.tree').empty()
-    $.when(
-        $.get('/Folder/Get'),
-        $.get('/File/Get'))
-        .then((folders, files) => {
-            tree.append(folders[0])
-            tree.append(files[0])
-        })
+    const foldersWrap = $('.tree>.folders').empty()
+    $.get('/Folder/Get').then(folders => foldersWrap.html(folders))
+}
+
+function loadFiles(folderId) {
+    if (folderId) {
+        const folder = $('.folder-id-' + folderId)
+        if (folder.hasClass(open) || folder.hasClass(opened)) {
+            const subFiles = folder.find('>.files')
+            $.get('/File/Get?folderId=' + folderId)
+                .then(files => subFiles.html(files))
+        }
+        return
+    }
+    const filesWrap = $('.tree>.files').empty()
+    $.get('/File/Get').then(files => filesWrap.html(files))
 }
