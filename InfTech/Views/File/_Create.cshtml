@@ -1,4 +1,4 @@
-﻿@model InfTech.Models.CreateFileViewModel
+@model InfTech.Models.CreateFileViewModel
 
 <form id="createFileForm">
     @Html.AntiForgeryToken()
@@ -36,7 +36,7 @@
             data: $(this).serialize(),
             success: () => {
                 closeModal()
-                reloadTree()
+                loadContent(@Model.FolderId)
             },
             error: (error) => {
                 $('#createFileForm').parent().html(error.responseText)
