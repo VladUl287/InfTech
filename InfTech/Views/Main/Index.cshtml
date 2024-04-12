@@ -10,8 +10,12 @@
     </div>
     <div class="explorer overflow-hidden h-100">
         <div class="tree h-100" onclick="rootEvent()">
-            @await Html.PartialAsync("~/Views/Folder/_Folders.cshtml", Model.Folders)
-            @await Html.PartialAsync("~/Views/File/_Files.cshtml", Model.Files)
+            <section class="folders">
+                @await Html.PartialAsync("~/Views/Folder/_Folders.cshtml", Model.Folders)
+            </section>
+            <section class="files">
+                @await Html.PartialAsync("~/Views/File/_Files.cshtml", Model.Files)
+            </section>
         </div>
         <span class="divider"></span>
         <div class="file-content h-100 overflow-hidden">
