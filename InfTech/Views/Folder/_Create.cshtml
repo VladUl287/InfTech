@@ -1,4 +1,4 @@
-﻿@model InfTech.Models.CreateFolderViewModel
+@model InfTech.Models.CreateFolderViewModel
 
 <form id="createFolderForm">
     @Html.AntiForgeryToken()
@@ -24,7 +24,7 @@
             data: $(this).serialize(),
             success: () => {
                 closeModal()
-                reloadTree()
+                loadContent(@Model.ParentFolderId)
             },
             error: (error) => {
                 $('#createFolderForm').parent().html(error.responseText)
