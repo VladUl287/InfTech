@@ -42,17 +42,16 @@ function checkFileActionMode(fileId, fileName, folderId) {
             });
             break
         case mode.rename:
-            const target = document.querySelector('.file-id-' + fileId + '>.name')
-            target?.setAttribute('contenteditable', true)
-            target?.focus()
-            target?.addEventListener('focusout', () => {
-                target?.setAttribute('contenteditable', false)
+            const target = $('.file-id-' + fileId + '>.name')
+            target.attr('contenteditable', true)
+            target.trigger('focus')
+            target.one('focusout', function () {
+                $(this).attr('contenteditable', false)
                 $.ajax({
-                    url: '/File/Rename?id=' + fileId + '&name=' + target.innerText,
-                    type: 'PUT',
-                    success: () => loadContent(folderId)
-                })
-            }, { once: true })
+                    url: '/File/Rename?id=' + fileId + '&name=' + this.innerText,
+                    type: 'PUT'
+                }).always(() => loadContent(folderId))
+            })
             break
         default:
             return false
