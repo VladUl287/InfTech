@@ -29,12 +29,14 @@ public sealed class MainController : Controller
     }
 
     [HttpGet]
+    [ResponseCache(Duration = 60)]
     public PartialViewResult Tab(TabViewModel model)
     {
         return PartialView("_Tab", model);
     }
 
     [HttpGet]
+    [ResponseCache(Duration = 60)]
     public async Task<PartialViewResult> TabContent(int fileId)
     {
         var file = await filePresenter.GetFile(fileId);
